@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd          
+		http://camel.apache.org/schema/spring 
+		http://camel.apache.org/schema/spring/camel-spring.xsd">
+	<bean id="routeBuilder"
+		class="org.mycompany.route.MySimpleRouteBuilder" />
+	<camelContext id="camel"
+		xmlns="http://camel.apache.org/schema/spring">
+		<!-- timer component -->
+		<route id="simple-route">
+			<from id="route-timer" uri="timer://foo?period=10000" />
+			<setBody id="route-setBody">
+				<simple>custom message - Hello World from camel-context.xml</simple>
+			</setBody>
+			<log id="route-log" message=">>> ${body}" />
+		</route>
+		<!-- file component -->
+		<route>
+			<from uri="file://C:/inputfolder" />
+			<to uri="file://C:/outputfolder" />
+		</route>
+		
+		<!-- using java based file transfer -->
+		<!-- <routeBuilder ref="routeBuilder" /> <redeliveryPolicyProfile id="test" 
+			retryAttemptedLogLevel="WARN" maximumRedeliveries="5" redeliveryDelay="5" 
+			/> -->
+
+	</camelContext>
+</beans>
