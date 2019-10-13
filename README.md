@@ -47,3 +47,6 @@ Then create the quickstart template:
 
 Now when you use "Add to Project" button in the OpenShift console, you should see a template for this quickstart. 
 
+### red hat fuse 7.2 + spring boot
+Added timer and file transfer component for practice
+
